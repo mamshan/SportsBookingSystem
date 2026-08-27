@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using SportsBookingSystem.Models;
 using SportsBookingSystem.Data;
 
-public class FacilitieController : Controller
+public class FacilityController : Controller
 {
     private readonly SportsContext _context;
 
-    public FacilitieController(SportsContext context)
+    public FacilityController(SportsContext context)
     {
         _context = context;
     }
