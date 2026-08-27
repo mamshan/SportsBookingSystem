@@ -1,0 +1,53 @@
+@model IEnumerable<SportsBookingSystem.Models.SportPreference>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.MemberId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Member)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Type)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SportPreferenceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SportPreferenceId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SportPreferenceId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
