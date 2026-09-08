@@ -20,15 +20,15 @@ public class MemberController : Controller
     }
 
     // GET: MEMBERS/Details/5
-    public async Task<IActionResult> Details(int? memberid)
+    public async Task<IActionResult> Details(int? id)
     {
-        if (memberid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var member = await _context.Members
-            .FirstOrDefaultAsync(m => m.MemberId == memberid);
+            .FirstOrDefaultAsync(m => m.MemberId == id);
         if (member == null)
         {
             return NotFound();
@@ -60,14 +60,14 @@ public class MemberController : Controller
     }
 
     // GET: MEMBERS/Edit/5
-    public async Task<IActionResult> Edit(int? memberid)
+    public async Task<IActionResult> Edit(int? id)
     {
-        if (memberid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var member = await _context.Members.FindAsync(memberid);
+        var member = await _context.Members.FindAsync(id);
         if (member == null)
         {
             return NotFound();
@@ -80,9 +80,9 @@ public class MemberController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? memberid, [Bind("MemberId,Name,Email,Phone,Address,Password,RegDate,Bookings,Reviews,SportPreferences")] Member member)
+    public async Task<IActionResult> Edit(int? id, [Bind("MemberId,Name,Email,Phone,Address,Password,RegDate,Bookings,Reviews,SportPreferences")] Member member)
     {
-        if (memberid != member.MemberId)
+        if (id != member.MemberId)
         {
             return NotFound();
         }
@@ -111,15 +111,15 @@ public class MemberController : Controller
     }
 
     // GET: MEMBERS/Delete/5
-    public async Task<IActionResult> Delete(int? memberid)
+    public async Task<IActionResult> Delete(int? id)
     {
-        if (memberid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var member = await _context.Members
-            .FirstOrDefaultAsync(m => m.MemberId == memberid);
+            .FirstOrDefaultAsync(m => m.MemberId == id);
         if (member == null)
         {
             return NotFound();
@@ -131,9 +131,9 @@ public class MemberController : Controller
     // POST: MEMBERS/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int? memberid)
+    public async Task<IActionResult> DeleteConfirmed(int? id)
     {
-        var member = await _context.Members.FindAsync(memberid);
+        var member = await _context.Members.FindAsync(id);
         if (member != null)
         {
             _context.Members.Remove(member);
@@ -143,8 +143,8 @@ public class MemberController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    private bool MemberExists(int? memberid)
+    private bool MemberExists(int? id)
     {
-        return _context.Members.Any(e => e.MemberId == memberid);
+        return _context.Members.Any(e => e.MemberId == id);
     }
 }

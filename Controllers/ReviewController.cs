@@ -20,15 +20,15 @@ public class ReviewController : Controller
     }
 
     // GET: REVIEWS/Details/5
-    public async Task<IActionResult> Details(int? reviewid)
+    public async Task<IActionResult> Details(int? id)
     {
-        if (reviewid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var review = await _context.Reviews
-            .FirstOrDefaultAsync(m => m.ReviewId == reviewid);
+            .FirstOrDefaultAsync(m => m.ReviewId == id);
         if (review == null)
         {
             return NotFound();
@@ -60,14 +60,14 @@ public class ReviewController : Controller
     }
 
     // GET: REVIEWS/Edit/5
-    public async Task<IActionResult> Edit(int? reviewid)
+    public async Task<IActionResult> Edit(int? id)
     {
-        if (reviewid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var review = await _context.Reviews.FindAsync(reviewid);
+        var review = await _context.Reviews.FindAsync(id);
         if (review == null)
         {
             return NotFound();
@@ -80,9 +80,9 @@ public class ReviewController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? reviewid, [Bind("ReviewId,MemberId,FacilityId,Rating,Comments,ReviewDate,Facility,Member")] Review review)
+    public async Task<IActionResult> Edit(int? id, [Bind("ReviewId,MemberId,FacilityId,Rating,Comments,ReviewDate,Facility,Member")] Review review)
     {
-        if (reviewid != review.ReviewId)
+        if (id != review.ReviewId)
         {
             return NotFound();
         }
@@ -111,15 +111,15 @@ public class ReviewController : Controller
     }
 
     // GET: REVIEWS/Delete/5
-    public async Task<IActionResult> Delete(int? reviewid)
+    public async Task<IActionResult> Delete(int? id)
     {
-        if (reviewid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var review = await _context.Reviews
-            .FirstOrDefaultAsync(m => m.ReviewId == reviewid);
+            .FirstOrDefaultAsync(m => m.ReviewId == id);
         if (review == null)
         {
             return NotFound();
@@ -131,9 +131,9 @@ public class ReviewController : Controller
     // POST: REVIEWS/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int? reviewid)
+    public async Task<IActionResult> DeleteConfirmed(int? id)
     {
-        var review = await _context.Reviews.FindAsync(reviewid);
+        var review = await _context.Reviews.FindAsync(id);
         if (review != null)
         {
             _context.Reviews.Remove(review);
@@ -143,8 +143,8 @@ public class ReviewController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    private bool ReviewExists(int? reviewid)
+    private bool ReviewExists(int? id)
     {
-        return _context.Reviews.Any(e => e.ReviewId == reviewid);
+        return _context.Reviews.Any(e => e.ReviewId == id);
     }
 }

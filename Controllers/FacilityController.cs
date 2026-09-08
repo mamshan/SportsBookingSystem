@@ -20,15 +20,15 @@ public class FacilityController : Controller
     }
 
     // GET: FACILITYS/Details/5
-    public async Task<IActionResult> Details(int? facilityid)
+    public async Task<IActionResult> Details(int? id)
     {
-        if (facilityid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var facility = await _context.Facilities
-            .FirstOrDefaultAsync(m => m.FacilityId == facilityid);
+            .FirstOrDefaultAsync(m => m.FacilityId == id);
         if (facility == null)
         {
             return NotFound();
@@ -60,14 +60,14 @@ public class FacilityController : Controller
     }
 
     // GET: FACILITYS/Edit/5
-    public async Task<IActionResult> Edit(int? facilityid)
+    public async Task<IActionResult> Edit(int? id)
     {
-        if (facilityid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var facility = await _context.Facilities.FindAsync(facilityid);
+        var facility = await _context.Facilities.FindAsync(id);
         if (facility == null)
         {
             return NotFound();
@@ -80,9 +80,9 @@ public class FacilityController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? facilityid, [Bind("FacilityId,Name,TypeId,Location,Capacity,HourlyRate,Bookings,Reviews,Type")] Facility facility)
+    public async Task<IActionResult> Edit(int? id, [Bind("FacilityId,Name,TypeId,Location,Capacity,HourlyRate,Bookings,Reviews,Type")] Facility facility)
     {
-        if (facilityid != facility.FacilityId)
+        if (id != facility.FacilityId)
         {
             return NotFound();
         }
@@ -111,15 +111,15 @@ public class FacilityController : Controller
     }
 
     // GET: FACILITYS/Delete/5
-    public async Task<IActionResult> Delete(int? facilityid)
+    public async Task<IActionResult> Delete(int? id)
     {
-        if (facilityid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var facility = await _context.Facilities
-            .FirstOrDefaultAsync(m => m.FacilityId == facilityid);
+            .FirstOrDefaultAsync(m => m.FacilityId == id);
         if (facility == null)
         {
             return NotFound();
@@ -131,9 +131,9 @@ public class FacilityController : Controller
     // POST: FACILITYS/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int? facilityid)
+    public async Task<IActionResult> DeleteConfirmed(int? id)
     {
-        var facility = await _context.Facilities.FindAsync(facilityid);
+        var facility = await _context.Facilities.FindAsync(id);
         if (facility != null)
         {
             _context.Facilities.Remove(facility);
@@ -143,8 +143,8 @@ public class FacilityController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    private bool FacilityExists(int? facilityid)
+    private bool FacilityExists(int? id)
     {
-        return _context.Facilities.Any(e => e.FacilityId == facilityid);
+        return _context.Facilities.Any(e => e.FacilityId == id);
     }
 }
