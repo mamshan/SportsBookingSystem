@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Guest redirected from booking form",
+    "pass": true
+  },
+  {
+    "name": "Invalid login rejected",
+    "pass": true
+  },
+  {
+    "name": "Registration opens member search",
+    "pass": true
+  },
+  {
+    "name": "Booking confirmation displayed",
+    "pass": true
+  },
+  {
+    "name": "Overlapping booking rejected",
+    "pass": true
+  },
+  {
+    "name": "Booked slot absent from search",
+    "pass": true
+  },
+  {
+    "name": "Review saved",
+    "pass": true
+  },
+  {
+    "name": "Guest reads saved review",
+    "pass": true
+  },
+  {
+    "name": "Inquiry confirmation displayed",
+    "pass": true
+  }
+]

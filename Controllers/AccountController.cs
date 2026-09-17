@@ -16,7 +16,7 @@ namespace SportsBookingSystem.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction(nameof(Login));
         }
 
         [HttpGet]
@@ -36,7 +36,7 @@ namespace SportsBookingSystem.Controllers
             }
 
             var member = await _context.Members
-                .FirstOrDefaultAsync(m => m.Email == email && m.Password == password);
+                .FirstOrDefaultAsync(m => m.Email == email.Trim() && m.Password == password);
 
             if (member == null)
             {
@@ -54,13 +54,21 @@ namespace SportsBookingSystem.Controllers
         public async Task<IActionResult> Register()
         {
             ViewBag.Sports = await _context.FacilityTypes.ToListAsync();
-            return View();
+            return View(new RegisterViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            model.Email = model.Email?.Trim() ?? "";
+            model.Name = model.Name?.Trim() ?? "";
+            model.SelectedSports = (model.SelectedSports ?? new List<int>()).Distinct().ToList();
+            var sports = await _context.FacilityTypes.OrderBy(t => t.TypeName).ToListAsync();
+            if (model.SelectedSports.Count == 0)
+                ModelState.AddModelError("SelectedSports", "Choose at least one preferred sport.");
+            if (model.SelectedSports.Any(id => !sports.Any(s => s.TypeId == id)))
+                ModelState.AddModelError("SelectedSports", "Choose a sport from the list.");
             if (await _context.Members.AnyAsync(m => m.Email == model.Email))
             {
                 ModelState.AddModelError("Email", "That email address is already registered.");
@@ -68,7 +76,7 @@ namespace SportsBookingSystem.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Sports = await _context.FacilityTypes.ToListAsync();
+                ViewBag.Sports = sports;
                 return View(model);
             }
 
@@ -82,18 +90,24 @@ namespace SportsBookingSystem.Controllers
                 RegDate = DateOnly.FromDateTime(DateTime.Now)
             };
 
-            _context.Members.Add(member);
-            await _context.SaveChangesAsync();
-
             foreach (var typeId in model.SelectedSports)
             {
-                _context.SportPreferences.Add(new SportPreference
+                member.SportPreferences.Add(new SportPreference
                 {
-                    MemberId = member.MemberId,
                     TypeId = typeId
                 });
             }
-            await _context.SaveChangesAsync();
+            _context.Members.Add(member);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Registration could not be saved. Check your details and try again.");
+                ViewBag.Sports = sports;
+                return View(model);
+            }
 
             HttpContext.Session.SetInt32("MemberID", member.MemberId);
             HttpContext.Session.SetString("MemberName", member.Name);
@@ -101,6 +115,7 @@ namespace SportsBookingSystem.Controllers
             return RedirectToAction("Search", "Facility");
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();

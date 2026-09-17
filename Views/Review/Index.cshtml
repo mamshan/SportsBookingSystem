@@ -1,71 +1,20 @@
-@model IEnumerable<SportsBookingSystem.Models.Review>
-
-@{
-    ViewData["Title"] = "Index";
+@model IEnumerable<Review>
+@{ ViewData["Title"] = "Facility reviews"; }
+<h1>Facility reviews</h1>
+@if (Context.Session.GetInt32("MemberID") != null) { <p><a class="btn btn-primary" asp-action="Create">Write a review</a></p> }
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-5"><label for="facilityId">Facility</label><select id="facilityId" name="facilityId" asp-items="ViewBag.Facilities" class="form-select"><option value="">All facilities</option></select></div>
+    <div class="col-md-3"><label for="rating">Rating</label><select name="rating" id="rating" class="form-select"><option value="">All ratings</option>
+        @for (var i = 1; i <= 5; i++) { <option value="@i" selected="@(ViewBag.Rating == i)">@i / 5</option> }
+    </select></div>
+    <div class="col-md-4 align-self-end"><button class="btn btn-primary">Search</button> <a asp-action="Index" class="btn btn-secondary">Clear</a></div>
+</form>
+@if (!Model.Any()) { <p>No reviews match your search.</p> }
+@foreach (var review in Model)
+{
+    <div class="border rounded p-3 mb-3">
+        <h2 class="h5">@review.Facility.Name — @review.Rating / 5</h2>
+        <p>@review.Comments</p>
+        <small>@review.Member.Name · @review.ReviewDate?.ToString("dd MMM yyyy")</small>
+    </div>
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MemberId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FacilityId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Comments)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReviewDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Facility)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Member)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.MemberId)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.FacilityId)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Comments)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.ReviewDate)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Facility)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Member)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ReviewId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ReviewId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ReviewId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

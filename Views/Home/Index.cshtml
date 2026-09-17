@@ -1,8 +1,16 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{ ViewData["Title"] = "Home"; }
+<h1>Community Sports Facilities</h1>
+<p>Find a local place to play tennis, football, basketball, badminton or go swimming.</p>
+<p>The Sports Council helps the community stay active by providing facilities for practice, friendly games and group activities. Contact us to ask about sports programmes and membership.</p>
+<p><a class="btn btn-primary" asp-controller="Facility" asp-action="Search">Browse facilities</a>
+<a class="btn btn-outline-primary" asp-controller="Review" asp-action="Index">Read reviews</a></p>
+@if (Context.Session.GetInt32("MemberID") == null)
+{
+    <div class="row mt-4">
+        <div class="col-md-6"><h2>Already a member?</h2><p>Sign in to check availability and request a booking.</p>
+            <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Member login</a></div>
+        <div class="col-md-6"><h2>New member?</h2><p>Register your details and choose your favourite sports.</p>
+            <a class="btn btn-success" asp-controller="Account" asp-action="Register">Register</a></div>
+    </div>
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<p class="mt-4">Have a question? <a asp-controller="Inquiry" asp-action="Create">Contact the Sports Council</a>.</p>

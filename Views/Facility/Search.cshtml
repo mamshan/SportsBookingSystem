@@ -1,0 +1,38 @@
+@model FacilitySearchViewModel
+@{ ViewData["Title"] = "Find a facility"; var member = Context.Session.GetInt32("MemberID") != null; }
+<h1>Find a facility</h1>
+<p>Choose a date and time to find available facilities. With a date only, results show facilities with no bookings that day.</p>
+@if (!member) { <p>Guests can browse availability. <a asp-controller="Account" asp-action="Login">Sign in</a> to see rates and book.</p> }
+<form method="get" asp-action="Search" class="row g-3 mb-4">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="col-md-3"><label asp-for="TypeId"></label><select asp-for="TypeId" asp-items="ViewBag.Types" class="form-select"><option value="">All sports</option></select></div>
+    <div class="col-md-3"><label asp-for="Location"></label><input asp-for="Location" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="Date"></label><input asp-for="Date" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="StartTime"></label><input asp-for="StartTime" class="form-control" /></div>
+    <div class="col-md-2"><label asp-for="EndTime"></label><input asp-for="EndTime" class="form-control" /></div>
+    <div><button class="btn btn-primary">Search</button> <a asp-action="Search" class="btn btn-secondary">Clear</a></div>
+</form>
+@if (ViewData.ModelState.IsValid)
+{
+    @if (!Model.Facilities.Any()) { <p>No facilities match your search.</p> }
+    else
+    {
+        <table class="table table-striped">
+            <thead><tr><th>Facility</th><th>Sport</th><th>Location</th>
+                @if (member) { <th>Capacity</th><th>Hourly rate (LKR)</th><th></th> }
+            </tr></thead>
+            <tbody>
+            @foreach (var facility in Model.Facilities)
+            {
+                <tr><td>@facility.Name</td><td>@facility.Type.TypeName</td><td>@facility.Location</td>
+                    @if (member)
+                    {
+                        <td>@facility.Capacity</td><td>@facility.HourlyRate?.ToString("N2")</td>
+                        <td><a asp-controller="Booking" asp-action="Create" asp-route-facilityId="@facility.FacilityId">Book</a></td>
+                    }
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}

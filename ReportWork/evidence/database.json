@@ -1,0 +1,1003 @@
+{
+  "recordedAt": "2026-09-17T18:16:31.197Z",
+  "columns": [
+    {
+      "TableName": "Booking",
+      "ColumnName": "BookingID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": true
+    },
+    {
+      "TableName": "Booking",
+      "ColumnName": "MemberID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Booking",
+      "ColumnName": "FacilityID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Booking",
+      "ColumnName": "BookingDate",
+      "DataType": "date",
+      "MaxLength": 3,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Booking",
+      "ColumnName": "StartTime",
+      "DataType": "datetime",
+      "MaxLength": 8,
+      "Precision": 23,
+      "Scale": 3,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Booking",
+      "ColumnName": "EndTime",
+      "DataType": "datetime",
+      "MaxLength": 8,
+      "Precision": 23,
+      "Scale": 3,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Booking",
+      "ColumnName": "Status",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Facility",
+      "ColumnName": "FacilityID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": true
+    },
+    {
+      "TableName": "Facility",
+      "ColumnName": "Name",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Facility",
+      "ColumnName": "TypeID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Facility",
+      "ColumnName": "Location",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Facility",
+      "ColumnName": "Capacity",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Facility",
+      "ColumnName": "HourlyRate",
+      "DataType": "decimal",
+      "MaxLength": 13,
+      "Precision": 25,
+      "Scale": 2,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "FacilityType",
+      "ColumnName": "TypeID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": true
+    },
+    {
+      "TableName": "FacilityType",
+      "ColumnName": "TypeName",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Inquiry",
+      "ColumnName": "InquiryID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": true
+    },
+    {
+      "TableName": "Inquiry",
+      "ColumnName": "GuestName",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Inquiry",
+      "ColumnName": "Email",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Inquiry",
+      "ColumnName": "Message",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Inquiry",
+      "ColumnName": "DateSent",
+      "DataType": "date",
+      "MaxLength": 3,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Member",
+      "ColumnName": "MemberID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": true
+    },
+    {
+      "TableName": "Member",
+      "ColumnName": "Name",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Member",
+      "ColumnName": "Email",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Member",
+      "ColumnName": "Phone",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Member",
+      "ColumnName": "Address",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Member",
+      "ColumnName": "Password",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Member",
+      "ColumnName": "RegDate",
+      "DataType": "date",
+      "MaxLength": 3,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Review",
+      "ColumnName": "ReviewID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": true
+    },
+    {
+      "TableName": "Review",
+      "ColumnName": "MemberID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Review",
+      "ColumnName": "FacilityID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Review",
+      "ColumnName": "Rating",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Review",
+      "ColumnName": "Comments",
+      "DataType": "varchar",
+      "MaxLength": 255,
+      "Precision": 0,
+      "Scale": 0,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "Review",
+      "ColumnName": "ReviewDate",
+      "DataType": "datetime",
+      "MaxLength": 8,
+      "Precision": 23,
+      "Scale": 3,
+      "Nullable": true,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "SportPreference",
+      "ColumnName": "SportPreferenceID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": true
+    },
+    {
+      "TableName": "SportPreference",
+      "ColumnName": "MemberID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    },
+    {
+      "TableName": "SportPreference",
+      "ColumnName": "TypeID",
+      "DataType": "int",
+      "MaxLength": 4,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false,
+      "IsIdentity": false
+    }
+  ],
+  "keys": [
+    {
+      "TableName": "Booking",
+      "ColumnName": "BookingID",
+      "ConstraintName": "Booking_PK",
+      "Kind": "PRIMARY_KEY_CONSTRAINT"
+    },
+    {
+      "TableName": "Facility",
+      "ColumnName": "FacilityID",
+      "ConstraintName": "Facility_PK",
+      "Kind": "PRIMARY_KEY_CONSTRAINT"
+    },
+    {
+      "TableName": "FacilityType",
+      "ColumnName": "TypeID",
+      "ConstraintName": "FacilityType_PK",
+      "Kind": "PRIMARY_KEY_CONSTRAINT"
+    },
+    {
+      "TableName": "Inquiry",
+      "ColumnName": "InquiryID",
+      "ConstraintName": "Inquiry_PK",
+      "Kind": "PRIMARY_KEY_CONSTRAINT"
+    },
+    {
+      "TableName": "Member",
+      "ColumnName": "Email",
+      "ConstraintName": "Member__UN",
+      "Kind": "UNIQUE_CONSTRAINT"
+    },
+    {
+      "TableName": "Member",
+      "ColumnName": "MemberID",
+      "ConstraintName": "Member_PK",
+      "Kind": "PRIMARY_KEY_CONSTRAINT"
+    },
+    {
+      "TableName": "Review",
+      "ColumnName": "ReviewID",
+      "ConstraintName": "Review_PK",
+      "Kind": "PRIMARY_KEY_CONSTRAINT"
+    },
+    {
+      "TableName": "SportPreference",
+      "ColumnName": "MemberID",
+      "ConstraintName": "SportPreference__UN",
+      "Kind": "UNIQUE_CONSTRAINT"
+    },
+    {
+      "TableName": "SportPreference",
+      "ColumnName": "TypeID",
+      "ConstraintName": "SportPreference__UN",
+      "Kind": "UNIQUE_CONSTRAINT"
+    },
+    {
+      "TableName": "SportPreference",
+      "ColumnName": "SportPreferenceID",
+      "ConstraintName": "SportPreference_PK",
+      "Kind": "PRIMARY_KEY_CONSTRAINT"
+    },
+    {
+      "TableName": "sysdiagrams",
+      "ColumnName": "diagram_id",
+      "ConstraintName": "PK__sysdiagr__C2B05B6158B1E69F",
+      "Kind": "PRIMARY_KEY_CONSTRAINT"
+    },
+    {
+      "TableName": "sysdiagrams",
+      "ColumnName": "principal_id",
+      "ConstraintName": "UK_principal_name",
+      "Kind": "UNIQUE_CONSTRAINT"
+    },
+    {
+      "TableName": "sysdiagrams",
+      "ColumnName": "name",
+      "ConstraintName": "UK_principal_name",
+      "Kind": "UNIQUE_CONSTRAINT"
+    }
+  ],
+  "foreignKeys": [
+    {
+      "TableName": "Review",
+      "ColumnName": "FacilityID",
+      "TargetTable": "Facility",
+      "TargetColumn": "FacilityID",
+      "ConstraintName": "Review_Facility_FK"
+    },
+    {
+      "TableName": "Booking",
+      "ColumnName": "FacilityID",
+      "TargetTable": "Facility",
+      "TargetColumn": "FacilityID",
+      "ConstraintName": "Booking_Facility_FK"
+    },
+    {
+      "TableName": "Facility",
+      "ColumnName": "TypeID",
+      "TargetTable": "FacilityType",
+      "TargetColumn": "TypeID",
+      "ConstraintName": "Facility_FacilityType_FK"
+    },
+    {
+      "TableName": "SportPreference",
+      "ColumnName": "TypeID",
+      "TargetTable": "FacilityType",
+      "TargetColumn": "TypeID",
+      "ConstraintName": "SportPreference_FacilityType_FK"
+    },
+    {
+      "TableName": "Review",
+      "ColumnName": "MemberID",
+      "TargetTable": "Member",
+      "TargetColumn": "MemberID",
+      "ConstraintName": "Review_Member_FK"
+    },
+    {
+      "TableName": "SportPreference",
+      "ColumnName": "MemberID",
+      "TargetTable": "Member",
+      "TargetColumn": "MemberID",
+      "ConstraintName": "SportPreference_Member_FK"
+    },
+    {
+      "TableName": "Booking",
+      "ColumnName": "MemberID",
+      "TargetTable": "Member",
+      "TargetColumn": "MemberID",
+      "ConstraintName": "Booking_Member_FK"
+    }
+  ],
+  "checks": [
+    {
+      "TableName": "Review",
+      "ConstraintName": "CK_Review_Rating",
+      "Definition": "([Rating]>=(1) AND [Rating]<=(5))"
+    },
+    {
+      "TableName": "Booking",
+      "ConstraintName": "CK_Booking_Status",
+      "Definition": "([Status]='Cancelled' OR [Status]='Confirmed' OR [Status]='Pending')"
+    }
+  ],
+  "counts": [
+    {
+      "TableName": "Member",
+      "Rows": 8
+    },
+    {
+      "TableName": "FacilityType",
+      "Rows": 5
+    },
+    {
+      "TableName": "Facility",
+      "Rows": 18
+    },
+    {
+      "TableName": "Booking",
+      "Rows": 15
+    },
+    {
+      "TableName": "Review",
+      "Rows": 20
+    },
+    {
+      "TableName": "SportPreference",
+      "Rows": 15
+    },
+    {
+      "TableName": "Inquiry",
+      "Rows": 8
+    }
+  ],
+  "queries": [
+    {
+      "title": "Bookings with member and facility names",
+      "sql": "SELECT TOP (10) b.BookingID,m.Name AS Member,f.Name AS Facility,b.BookingDate,b.Status FROM Booking b JOIN Member m ON b.MemberID=m.MemberID JOIN Facility f ON b.FacilityID=f.FacilityID ORDER BY b.BookingID;",
+      "rows": [
+        {
+          "BookingID": 1,
+          "Member": "M A M SHAN",
+          "Facility": "Central Tennis Court 1",
+          "BookingDate": "2025-03-10",
+          "Status": "Confirmed"
+        },
+        {
+          "BookingID": 2,
+          "Member": "M A M SHAN",
+          "Facility": "Indoor Basketball Court",
+          "BookingDate": "2025-03-14",
+          "Status": "Confirmed"
+        },
+        {
+          "BookingID": 3,
+          "Member": "Amal Perera",
+          "Facility": "Badminton Hall A",
+          "BookingDate": "2025-03-11",
+          "Status": "Confirmed"
+        },
+        {
+          "BookingID": 4,
+          "Member": "Amal Perera",
+          "Facility": "Municipal Swimming Pool",
+          "BookingDate": "2025-03-18",
+          "Status": "Pending"
+        },
+        {
+          "BookingID": 5,
+          "Member": "Nisha Fernando",
+          "Facility": "Riverside Soccer Field",
+          "BookingDate": "2025-03-12",
+          "Status": "Confirmed"
+        },
+        {
+          "BookingID": 6,
+          "Member": "Nisha Fernando",
+          "Facility": "Central Tennis Court 1",
+          "BookingDate": "2025-03-20",
+          "Status": "Cancelled"
+        },
+        {
+          "BookingID": 7,
+          "Member": "Nisha Fernando",
+          "Facility": "Indoor Basketball Court",
+          "BookingDate": "2025-03-22",
+          "Status": "Pending"
+        },
+        {
+          "BookingID": 8,
+          "Member": "Ruwan Silva",
+          "Facility": "Badminton Hall A",
+          "BookingDate": "2025-03-15",
+          "Status": "Confirmed"
+        },
+        {
+          "BookingID": 9,
+          "Member": "Ruwan Silva",
+          "Facility": "Badminton Hall B",
+          "BookingDate": "2025-03-19",
+          "Status": "Confirmed"
+        },
+        {
+          "BookingID": 10,
+          "Member": "Ruwan Silva",
+          "Facility": "Municipal Swimming Pool",
+          "BookingDate": "2025-03-25",
+          "Status": "Pending"
+        }
+      ]
+    },
+    {
+      "title": "Facilities available for a selected time",
+      "sql": "SELECT f.FacilityID,f.Name,f.Location FROM Facility f WHERE NOT EXISTS (SELECT 1 FROM Booking b WHERE b.FacilityID=f.FacilityID AND b.BookingDate='2026-10-17' AND b.Status<>'Cancelled' AND (b.StartTime IS NULL OR b.EndTime IS NULL OR (b.StartTime<'2026-10-17T11:00:00' AND b.EndTime>'2026-10-17T10:00:00'))) ORDER BY f.FacilityID;",
+      "rows": [
+        {
+          "FacilityID": 1,
+          "Name": "Central Tennis Court 1",
+          "Location": "Community Sports Complex, Negombo"
+        },
+        {
+          "FacilityID": 2,
+          "Name": "Central Tennis Court 2",
+          "Location": "Community Sports Complex, Negombo"
+        },
+        {
+          "FacilityID": 3,
+          "Name": "Riverside Soccer Field",
+          "Location": "Riverside Park, Gampaha"
+        },
+        {
+          "FacilityID": 4,
+          "Name": "Municipal Soccer Ground",
+          "Location": "Municipal Grounds, Colombo"
+        },
+        {
+          "FacilityID": 5,
+          "Name": "Indoor Basketball Court",
+          "Location": "Community Sports Complex, Negombo"
+        },
+        {
+          "FacilityID": 6,
+          "Name": "Open Basketball Court",
+          "Location": "Riverside Park, Gampaha"
+        },
+        {
+          "FacilityID": 7,
+          "Name": "Badminton Hall A",
+          "Location": "Town Hall Sports Centre, Colombo"
+        },
+        {
+          "FacilityID": 8,
+          "Name": "Badminton Hall B",
+          "Location": "Town Hall Sports Centre, Colombo"
+        },
+        {
+          "FacilityID": 9,
+          "Name": "Municipal Swimming Pool",
+          "Location": "Municipal Grounds, Colombo"
+        },
+        {
+          "FacilityID": 10,
+          "Name": "Central Tennis Court 1",
+          "Location": "Community Sports Complex, Negombo"
+        },
+        {
+          "FacilityID": 11,
+          "Name": "Central Tennis Court 2",
+          "Location": "Community Sports Complex, Negombo"
+        },
+        {
+          "FacilityID": 12,
+          "Name": "Riverside Soccer Field",
+          "Location": "Riverside Park, Gampaha"
+        },
+        {
+          "FacilityID": 13,
+          "Name": "Municipal Soccer Ground",
+          "Location": "Municipal Grounds, Colombo"
+        },
+        {
+          "FacilityID": 14,
+          "Name": "Indoor Basketball Court",
+          "Location": "Community Sports Complex, Negombo"
+        },
+        {
+          "FacilityID": 15,
+          "Name": "Open Basketball Court",
+          "Location": "Riverside Park, Gampaha"
+        },
+        {
+          "FacilityID": 16,
+          "Name": "Badminton Hall A",
+          "Location": "Town Hall Sports Centre, Colombo"
+        },
+        {
+          "FacilityID": 17,
+          "Name": "Badminton Hall B",
+          "Location": "Town Hall Sports Centre, Colombo"
+        },
+        {
+          "FacilityID": 18,
+          "Name": "Municipal Swimming Pool",
+          "Location": "Municipal Grounds, Colombo"
+        }
+      ]
+    },
+    {
+      "title": "Average rating for each reviewed facility",
+      "sql": "SELECT f.Name,COUNT(*) AS Reviews,CAST(AVG(CAST(r.Rating AS DECIMAL(5,2))) AS DECIMAL(5,2)) AS AverageRating FROM Review r JOIN Facility f ON r.FacilityID=f.FacilityID GROUP BY f.FacilityID,f.Name ORDER BY AverageRating DESC;",
+      "rows": [
+        {
+          "Name": "Badminton Hall A",
+          "Reviews": 4,
+          "AverageRating": 4.5
+        },
+        {
+          "Name": "Indoor Basketball Court",
+          "Reviews": 6,
+          "AverageRating": 4.33
+        },
+        {
+          "Name": "Municipal Soccer Ground",
+          "Reviews": 2,
+          "AverageRating": 4
+        },
+        {
+          "Name": "Central Tennis Court 1",
+          "Reviews": 4,
+          "AverageRating": 3
+        },
+        {
+          "Name": "Riverside Soccer Field",
+          "Reviews": 2,
+          "AverageRating": 3
+        },
+        {
+          "Name": "Badminton Hall B",
+          "Reviews": 2,
+          "AverageRating": 2
+        }
+      ]
+    },
+    {
+      "title": "Five least expensive facilities",
+      "sql": "SELECT TOP (5) Name,Location,HourlyRate FROM Facility WHERE HourlyRate IS NOT NULL ORDER BY HourlyRate,FacilityID;",
+      "rows": [
+        {
+          "Name": "Municipal Swimming Pool",
+          "Location": "Municipal Grounds, Colombo",
+          "HourlyRate": 800
+        },
+        {
+          "Name": "Municipal Swimming Pool",
+          "Location": "Municipal Grounds, Colombo",
+          "HourlyRate": 800
+        },
+        {
+          "Name": "Badminton Hall A",
+          "Location": "Town Hall Sports Centre, Colombo",
+          "HourlyRate": 1200
+        },
+        {
+          "Name": "Badminton Hall B",
+          "Location": "Town Hall Sports Centre, Colombo",
+          "HourlyRate": 1200
+        },
+        {
+          "Name": "Badminton Hall A",
+          "Location": "Town Hall Sports Centre, Colombo",
+          "HourlyRate": 1200
+        }
+      ]
+    },
+    {
+      "title": "Members who have made a booking",
+      "sql": "SELECT MemberID,Name FROM Member WHERE MemberID IN (SELECT MemberID FROM Booking) ORDER BY MemberID;",
+      "rows": [
+        {
+          "MemberID": 1,
+          "Name": "M A M SHAN"
+        },
+        {
+          "MemberID": 2,
+          "Name": "Amal Perera"
+        },
+        {
+          "MemberID": 3,
+          "Name": "Nisha Fernando"
+        },
+        {
+          "MemberID": 4,
+          "Name": "Ruwan Silva"
+        },
+        {
+          "MemberID": 5,
+          "Name": "Dilani Jayasuriya"
+        },
+        {
+          "MemberID": 9,
+          "Name": "M A M SHAN"
+        }
+      ]
+    },
+    {
+      "title": "Facilities with no booking records",
+      "sql": "SELECT f.FacilityID,f.Name FROM Facility f LEFT JOIN Booking b ON f.FacilityID=b.FacilityID WHERE b.BookingID IS NULL ORDER BY f.FacilityID;",
+      "rows": [
+        {
+          "FacilityID": 6,
+          "Name": "Open Basketball Court"
+        },
+        {
+          "FacilityID": 10,
+          "Name": "Central Tennis Court 1"
+        },
+        {
+          "FacilityID": 11,
+          "Name": "Central Tennis Court 2"
+        },
+        {
+          "FacilityID": 12,
+          "Name": "Riverside Soccer Field"
+        },
+        {
+          "FacilityID": 13,
+          "Name": "Municipal Soccer Ground"
+        },
+        {
+          "FacilityID": 14,
+          "Name": "Indoor Basketball Court"
+        },
+        {
+          "FacilityID": 15,
+          "Name": "Open Basketball Court"
+        },
+        {
+          "FacilityID": 18,
+          "Name": "Municipal Swimming Pool"
+        }
+      ]
+    },
+    {
+      "title": "Preferred sports for each member",
+      "sql": "SELECT m.Name AS Member,t.TypeName AS PreferredSport FROM SportPreference s JOIN Member m ON m.MemberID=s.MemberID JOIN FacilityType t ON t.TypeID=s.TypeID ORDER BY m.MemberID,t.TypeName;",
+      "rows": [
+        {
+          "Member": "M A M SHAN",
+          "PreferredSport": "Basketball"
+        },
+        {
+          "Member": "M A M SHAN",
+          "PreferredSport": "Tennis"
+        },
+        {
+          "Member": "Amal Perera",
+          "PreferredSport": "Badminton"
+        },
+        {
+          "Member": "Amal Perera",
+          "PreferredSport": "Swimming"
+        },
+        {
+          "Member": "Nisha Fernando",
+          "PreferredSport": "Basketball"
+        },
+        {
+          "Member": "Nisha Fernando",
+          "PreferredSport": "Soccer"
+        },
+        {
+          "Member": "Nisha Fernando",
+          "PreferredSport": "Tennis"
+        },
+        {
+          "Member": "Ruwan Silva",
+          "PreferredSport": "Badminton"
+        },
+        {
+          "Member": "Dilani Jayasuriya",
+          "PreferredSport": "Basketball"
+        },
+        {
+          "Member": "Dilani Jayasuriya",
+          "PreferredSport": "Soccer"
+        },
+        {
+          "Member": "M A M SHAN",
+          "PreferredSport": "Soccer"
+        },
+        {
+          "Member": "M A M SHAN",
+          "PreferredSport": "Swimming"
+        },
+        {
+          "Member": "M A M SHAN",
+          "PreferredSport": "Tennis"
+        },
+        {
+          "Member": "M A M SHAN",
+          "PreferredSport": "Badminton"
+        },
+        {
+          "Member": "M A M SHAN",
+          "PreferredSport": "Basketball"
+        }
+      ]
+    },
+    {
+      "title": "Latest guest inquiries",
+      "sql": "SELECT TOP (5) InquiryID,GuestName,Message,DateSent FROM Inquiry ORDER BY DateSent DESC,InquiryID DESC;",
+      "rows": [
+        {
+          "InquiryID": 8,
+          "GuestName": "Ishara Gunawardena",
+          "Message": "Can facilities be booked for a company sports day?",
+          "DateSent": "2025-03-17"
+        },
+        {
+          "InquiryID": 4,
+          "GuestName": "Ishara Gunawardena",
+          "Message": "Can facilities be booked for a company sports day?",
+          "DateSent": "2025-03-17"
+        },
+        {
+          "InquiryID": 7,
+          "GuestName": "Menaka Silva",
+          "Message": "Is the swimming pool open on public holidays?",
+          "DateSent": "2025-03-13"
+        },
+        {
+          "InquiryID": 3,
+          "GuestName": "Menaka Silva",
+          "Message": "Is the swimming pool open on public holidays?",
+          "DateSent": "2025-03-13"
+        },
+        {
+          "InquiryID": 6,
+          "GuestName": "Tharindu Rajapaksa",
+          "Message": "Do you run coaching sessions for children during holidays?",
+          "DateSent": "2025-03-08"
+        }
+      ]
+    }
+  ],
+  "evidenceRows": {
+    "member": [
+      {
+        "MemberID": 12,
+        "Name": "Report Evidence Member",
+        "Email": "Report1789668992879@example.test",
+        "RegDate": "2026-09-17"
+      }
+    ],
+    "preference": [
+      {
+        "MemberID": 12,
+        "TypeName": "Report1789668992879"
+      }
+    ],
+    "booking": [
+      {
+        "BookingID": 24,
+        "MemberID": 12,
+        "FacilityID": 22,
+        "BookingDate": "2026-10-17",
+        "StartTime": "2026-10-17T10:00:00",
+        "EndTime": "2026-10-17T11:00:00",
+        "Status": "Pending"
+      },
+      {
+        "BookingID": 25,
+        "MemberID": 12,
+        "FacilityID": 22,
+        "BookingDate": "2020-01-01",
+        "StartTime": "2020-01-01T10:00:00",
+        "EndTime": "2020-01-01T11:00:00",
+        "Status": "Confirmed"
+      }
+    ],
+    "review": [
+      {
+        "ReviewID": 24,
+        "MemberID": 12,
+        "FacilityID": 22,
+        "Rating": 4,
+        "Comments": "The court was clean and the booking process was easy.",
+        "ReviewDate": "2026-09-17T23:46:42.253"
+      }
+    ],
+    "inquiry": [
+      {
+        "InquiryID": 12,
+        "GuestName": "Report Evidence Guest",
+        "Message": "Are tennis coaching sessions available on weekends?",
+        "DateSent": "2026-09-17"
+      }
+    ]
+  }
+}

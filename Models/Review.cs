@@ -19,9 +19,8 @@ public partial class Review
     [Column("FacilityID")]
     public int FacilityId { get; set; }
 
-    [StringLength(255)]
-    [Unicode(false)]
-    public string Rating { get; set; } = null!;
+    [Range(1, 5)]
+    public int Rating { get; set; }
 
     [StringLength(255)]
     [Unicode(false)]

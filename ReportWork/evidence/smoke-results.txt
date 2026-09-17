@@ -1,0 +1,36 @@
+PASS: Home page
+PASS: Guest facility search hides booking details
+PASS: Guest blocked from /Booking/Create
+PASS: Guest blocked from /Booking/MyBookings
+PASS: Guest blocked from /Review/Create
+PASS: Unused management route disabled: /Member
+PASS: Unused management route disabled: /Facility/Create
+PASS: Unused management route disabled: /Facility/Edit/1
+PASS: Unused management route disabled: /Review/Delete/1
+PASS: Unused management route disabled: /Inquiry
+PASS: Unused management route disabled: /SportPreference
+PASS: Unused management route disabled: /FacilityType
+PASS: Wrong login rejected
+PASS: Invalid sport rejected
+PASS: Registration and automatic login
+PASS: Sports preference saved
+PASS: Duplicate email rejected
+PASS: Valid login
+PASS: Member search shows booking link
+PASS: Booking saved
+PASS: Member and status cannot be forged
+PASS: Overlapping booking rejected
+PASS: Booked facility excluded from search
+PASS: Adjacent booking allowed
+PASS: Invalid time rejected
+PASS: Past booking rejected
+PASS: Review before use rejected
+PASS: Invalid rating rejected
+PASS: Review saved
+PASS: Review search shows facility and comments
+PASS: Empty inquiry rejected
+PASS: Inquiry confirmation
+PASS: Inquiry saved with server date
+PASS: Logout clears session
+34 checks passed.
+Temporary test records removed.

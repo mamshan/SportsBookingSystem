@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SportsBookingSystem.Models;
 using SportsBookingSystem.Data;
 
+[NonController]
 public class MemberController : Controller
 {
     private readonly SportsContext _context;

@@ -35,7 +35,9 @@
                                 <span class="nav-link">Hello, @Context.Session.GetString("MemberName")</span>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+                                <form asp-controller="Account" asp-action="Logout" method="post">
+                                    <button class="btn nav-link" type="submit">Logout</button>
+                                </form>
                             </li>
                         }
                         else
@@ -56,6 +58,11 @@
                                 <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
+                        @if (Context.Session.GetInt32("MemberID") != null)
+                        {
+                            <li class="nav-item"><a class="nav-link" asp-controller="Review" asp-action="Index">Reviews</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Inquiry" asp-action="Create">Contact Us</a></li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -63,6 +70,10 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["Success"] is string message)
+            {
+                <div class="alert alert-success" role="status">@message</div>
+            }
             @RenderBody()
         </main>
     </div>

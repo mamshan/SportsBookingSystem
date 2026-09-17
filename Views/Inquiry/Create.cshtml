@@ -1,48 +1,12 @@
-@model SportsBookingSystem.Models.Inquiry
+@model Inquiry
+@{ ViewData["Title"] = "Contact the Sports Council"; }
+<h1>Contact the Sports Council</h1>
 
-@{
-    ViewData["Title"] = "Create";
-}
-
-<h1>Create</h1>
-
-<h4>Inquiry</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label asp-for="GuestName" class="control-label"></label>
-                <input asp-for="GuestName" class="form-control" />
-                <span asp-validation-for="GuestName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Message" class="control-label"></label>
-                <input asp-for="Message" class="form-control" />
-                <span asp-validation-for="Message" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="DateSent" class="control-label"></label>
-                <input asp-for="DateSent" class="form-control" />
-                <span asp-validation-for="DateSent" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<form asp-action="Create" method="post" class="col-md-6">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3"><label asp-for="GuestName"></label><input asp-for="GuestName" class="form-control" /><span asp-validation-for="GuestName" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Email"></label><input asp-for="Email" type="email" class="form-control" /><span asp-validation-for="Email" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Message"></label><textarea asp-for="Message" rows="4" class="form-control"></textarea><span asp-validation-for="Message" class="text-danger"></span></div>
+    <button class="btn btn-primary">Send inquiry</button>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

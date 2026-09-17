@@ -32,8 +32,8 @@ public partial class SportsContext : DbContext
         {
             entity.HasKey(e => e.BookingId).HasName("Booking_PK");
 
-            entity.Property(e => e.BookingId).ValueGeneratedNever();
-            entity.Property(e => e.MemberId).ValueGeneratedOnAdd();
+            entity.Property(e => e.BookingId).ValueGeneratedOnAdd();
+            entity.Property(e => e.MemberId).ValueGeneratedNever();
 
             entity.HasOne(d => d.Facility).WithMany(p => p.Bookings)
                 .OnDelete(DeleteBehavior.ClientSetNull)

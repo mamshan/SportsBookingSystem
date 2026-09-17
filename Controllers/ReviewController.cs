@@ -1,150 +1,58 @@
-
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SportsBookingSystem.Models;
 using SportsBookingSystem.Data;
+using SportsBookingSystem.Models;
+
+namespace SportsBookingSystem.Controllers;
 
 public class ReviewController : Controller
 {
     private readonly SportsContext _context;
+    public ReviewController(SportsContext context) { _context = context; }
 
-    public ReviewController(SportsContext context)
+    public async Task<IActionResult> Index(int? facilityId, int? rating)
     {
-        _context = context;
+        ViewBag.Facilities = new SelectList(await _context.Facilities.OrderBy(f => f.Name).ToListAsync(), "FacilityId", "Name", facilityId);
+        ViewBag.Rating = rating;
+        var reviews = _context.Reviews.Include(r => r.Facility).Include(r => r.Member).AsQueryable();
+        if (facilityId.HasValue) reviews = reviews.Where(r => r.FacilityId == facilityId);
+        if (rating.HasValue) reviews = reviews.Where(r => r.Rating == rating.Value);
+        return View(await reviews.OrderByDescending(r => r.ReviewDate).ToListAsync());
     }
 
-    // GET: REVIEWS
-    public async Task<IActionResult> Index()    
+    public async Task<IActionResult> Create()
     {
-        return View(await _context.Reviews.ToListAsync());
+        var memberId = HttpContext.Session.GetInt32("MemberID");
+        if (memberId == null) return RedirectToAction("Login", "Account");
+        await LoadFacilities(memberId.Value);
+        return View(new ReviewViewModel());
     }
 
-    // GET: REVIEWS/Details/5
-    public async Task<IActionResult> Details(int? id)
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(ReviewViewModel model)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
-        var review = await _context.Reviews
-            .FirstOrDefaultAsync(m => m.ReviewId == id);
-        if (review == null)
-        {
-            return NotFound();
-        }
-
-        return View(review);
-    }
-
-    // GET: REVIEWS/Create
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-    // POST: REVIEWS/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("ReviewId,MemberId,FacilityId,Rating,Comments,ReviewDate,Facility,Member")] Review review)
-    {
+        var memberId = HttpContext.Session.GetInt32("MemberID");
+        if (memberId == null) return RedirectToAction("Login", "Account");
+        if (!await _context.Bookings.AnyAsync(b => b.MemberId == memberId && b.FacilityId == model.FacilityId
+            && b.Status == "Confirmed" && b.EndTime < DateTime.Now))
+            ModelState.AddModelError("FacilityId", "You can review a facility after a confirmed booking has ended.");
         if (ModelState.IsValid)
         {
-            _context.Add(review);
+            _context.Reviews.Add(new Review { MemberId = memberId.Value, FacilityId = model.FacilityId,
+                Rating = model.Rating, Comments = model.Comments, ReviewDate = DateTime.Now });
             await _context.SaveChangesAsync();
+            TempData["Success"] = "Thank you. Your review has been saved.";
             return RedirectToAction(nameof(Index));
         }
-        return View(review);
+        await LoadFacilities(memberId.Value);
+        return View(model);
     }
 
-    // GET: REVIEWS/Edit/5
-    public async Task<IActionResult> Edit(int? id)
+    private async Task LoadFacilities(int memberId)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
-        var review = await _context.Reviews.FindAsync(id);
-        if (review == null)
-        {
-            return NotFound();
-        }
-        return View(review);
-    }
-
-    // POST: REVIEWS/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("ReviewId,MemberId,FacilityId,Rating,Comments,ReviewDate,Facility,Member")] Review review)
-    {
-        if (id != review.ReviewId)
-        {
-            return NotFound();
-        }
-
-        if (ModelState.IsValid)
-        {
-            try
-            {
-                _context.Update(review);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReviewExists(review.ReviewId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
-        }
-        return View(review);
-    }
-
-    // GET: REVIEWS/Delete/5
-    public async Task<IActionResult> Delete(int? id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
-        var review = await _context.Reviews
-            .FirstOrDefaultAsync(m => m.ReviewId == id);
-        if (review == null)
-        {
-            return NotFound();
-        }
-
-        return View(review);
-    }
-
-    // POST: REVIEWS/Delete/5
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int? id)
-    {
-        var review = await _context.Reviews.FindAsync(id);
-        if (review != null)
-        {
-            _context.Reviews.Remove(review);
-        }
-
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
-    }
-
-    private bool ReviewExists(int? id)
-    {
-        return _context.Reviews.Any(e => e.ReviewId == id);
+        var facilities = await _context.Facilities.Where(f => f.Bookings.Any(b => b.MemberId == memberId
+            && b.Status == "Confirmed" && b.EndTime < DateTime.Now)).OrderBy(f => f.Name).ToListAsync();
+        ViewBag.Facilities = new SelectList(facilities, "FacilityId", "Name");
     }
 }

@@ -1,66 +1,12 @@
-@model SportsBookingSystem.Models.Review
-
-@{
-    ViewData["Title"] = "Create";
-}
-
-<h1>Create</h1>
-
-<h4>Review</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label asp-for="MemberId" class="control-label"></label>
-                <input asp-for="MemberId" class="form-control" />
-                <span asp-validation-for="MemberId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="FacilityId" class="control-label"></label>
-                <input asp-for="FacilityId" class="form-control" />
-                <span asp-validation-for="FacilityId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Comments" class="control-label"></label>
-                <input asp-for="Comments" class="form-control" />
-                <span asp-validation-for="Comments" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ReviewDate" class="control-label"></label>
-                <input asp-for="ReviewDate" class="form-control" />
-                <span asp-validation-for="ReviewDate" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Facility" class="control-label"></label>
-                <input asp-for="Facility" class="form-control" />
-                <span asp-validation-for="Facility" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Member" class="control-label"></label>
-                <input asp-for="Member" class="form-control" />
-                <span asp-validation-for="Member" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@model ReviewViewModel
+@{ ViewData["Title"] = "Write a review"; }
+<h1>Write a review</h1>
+<p>You can review facilities after a confirmed booking has ended. If none appear, you have no eligible bookings yet.</p>
+<form asp-action="Create" method="post" class="col-md-6">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3"><label asp-for="FacilityId"></label><select asp-for="FacilityId" asp-items="ViewBag.Facilities" class="form-select"><option value="">Choose a facility</option></select><span asp-validation-for="FacilityId" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Rating"></label><input asp-for="Rating" type="number" min="1" max="5" class="form-control" /><span asp-validation-for="Rating" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="Comments"></label><textarea asp-for="Comments" class="form-control" rows="4"></textarea><span asp-validation-for="Comments" class="text-danger"></span></div>
+    <button class="btn btn-primary">Submit review</button>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

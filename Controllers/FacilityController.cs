@@ -1,150 +1,41 @@
-
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SportsBookingSystem.Models;
 using SportsBookingSystem.Data;
+using SportsBookingSystem.Models;
+
+namespace SportsBookingSystem.Controllers;
 
 public class FacilityController : Controller
 {
     private readonly SportsContext _context;
+    public FacilityController(SportsContext context) { _context = context; }
 
-    public FacilityController(SportsContext context)
+    public IActionResult Index() => RedirectToAction(nameof(Search));
+
+    public async Task<IActionResult> Search([Bind("TypeId,Location,Date,StartTime,EndTime")] FacilitySearchViewModel model)
     {
-        _context = context;
-    }
+        ViewBag.Types = new SelectList(await _context.FacilityTypes.OrderBy(t => t.TypeName).ToListAsync(), "TypeId", "TypeName");
+        if (model.StartTime.HasValue != model.EndTime.HasValue)
+            ModelState.AddModelError("", "Enter both a start and end time.");
+        if (model.StartTime.HasValue && !model.Date.HasValue)
+            ModelState.AddModelError("", "Choose a date when searching by time.");
+        if (model.StartTime.HasValue && model.EndTime <= model.StartTime)
+            ModelState.AddModelError("", "End time must be after start time.");
+        if (!ModelState.IsValid) return View(model);
 
-    // GET: FACILITYS
-    public async Task<IActionResult> Index()    
-    {
-        return View(await _context.Facilities.ToListAsync());
-    }
-
-    // GET: FACILITYS/Details/5
-    public async Task<IActionResult> Details(int? id)
-    {
-        if (id == null)
+        var facilities = _context.Facilities.Include(f => f.Type).AsQueryable();
+        if (model.TypeId.HasValue) facilities = facilities.Where(f => f.TypeId == model.TypeId);
+        if (!string.IsNullOrWhiteSpace(model.Location))
+            facilities = facilities.Where(f => f.Location != null && f.Location.Contains(model.Location.Trim()));
+        if (model.Date.HasValue)
         {
-            return NotFound();
+            var start = model.Date.Value.ToDateTime(model.StartTime ?? TimeOnly.MinValue);
+            var end = model.EndTime.HasValue ? model.Date.Value.ToDateTime(model.EndTime.Value) : start.AddDays(1);
+            facilities = facilities.Where(f => !f.Bookings.Any(b => b.Status != "Cancelled" && b.BookingDate == model.Date
+                && (b.StartTime == null || b.EndTime == null || (b.StartTime < end && b.EndTime > start))));
         }
-
-        var facility = await _context.Facilities
-            .FirstOrDefaultAsync(m => m.FacilityId == id);
-        if (facility == null)
-        {
-            return NotFound();
-        }
-
-        return View(facility);
-    }
-
-    // GET: FACILITYS/Create
-    public IActionResult Create()
-    {
-        return View();
-    }
-
-    // POST: FACILITYS/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("FacilityId,Name,TypeId,Location,Capacity,HourlyRate,Bookings,Reviews,Type")] Facility facility)
-    {
-        if (ModelState.IsValid)
-        {
-            _context.Add(facility);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        return View(facility);
-    }
-
-    // GET: FACILITYS/Edit/5
-    public async Task<IActionResult> Edit(int? id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
-        var facility = await _context.Facilities.FindAsync(id);
-        if (facility == null)
-        {
-            return NotFound();
-        }
-        return View(facility);
-    }
-
-    // POST: FACILITYS/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("FacilityId,Name,TypeId,Location,Capacity,HourlyRate,Bookings,Reviews,Type")] Facility facility)
-    {
-        if (id != facility.FacilityId)
-        {
-            return NotFound();
-        }
-
-        if (ModelState.IsValid)
-        {
-            try
-            {
-                _context.Update(facility);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FacilityExists(facility.FacilityId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
-        }
-        return View(facility);
-    }
-
-    // GET: FACILITYS/Delete/5
-    public async Task<IActionResult> Delete(int? id)
-    {
-        if (id == null)
-        {
-            return NotFound();
-        }
-
-        var facility = await _context.Facilities
-            .FirstOrDefaultAsync(m => m.FacilityId == id);
-        if (facility == null)
-        {
-            return NotFound();
-        }
-
-        return View(facility);
-    }
-
-    // POST: FACILITYS/Delete/5
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int? id)
-    {
-        var facility = await _context.Facilities.FindAsync(id);
-        if (facility != null)
-        {
-            _context.Facilities.Remove(facility);
-        }
-
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
-    }
-
-    private bool FacilityExists(int? id)
-    {
-        return _context.Facilities.Any(e => e.FacilityId == id);
+        model.Facilities = await facilities.OrderBy(f => f.Name).ToListAsync();
+        return View(model);
     }
 }

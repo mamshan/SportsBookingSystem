@@ -1,72 +1,13 @@
-@model SportsBookingSystem.Models.Booking
-
-@{
-    ViewData["Title"] = "Create";
-}
-
-<h1>Create</h1>
-
-<h4>Booking</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label asp-for="MemberId" class="control-label"></label>
-                <input asp-for="MemberId" class="form-control" />
-                <span asp-validation-for="MemberId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="FacilityId" class="control-label"></label>
-                <input asp-for="FacilityId" class="form-control" />
-                <span asp-validation-for="FacilityId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="BookingDate" class="control-label"></label>
-                <input asp-for="BookingDate" class="form-control" />
-                <span asp-validation-for="BookingDate" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
-                <span asp-validation-for="StartTime" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="EndTime" class="control-label"></label>
-                <input asp-for="EndTime" class="form-control" />
-                <span asp-validation-for="EndTime" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Facility" class="control-label"></label>
-                <input asp-for="Facility" class="form-control" />
-                <span asp-validation-for="Facility" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Member" class="control-label"></label>
-                <input asp-for="Member" class="form-control" />
-                <span asp-validation-for="Member" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@model BookingViewModel
+@{ ViewData["Title"] = "Book a facility"; }
+<h1>Book a facility</h1>
+<p>Choose a future time slot. Your request will be saved as Pending.</p>
+<form asp-action="Create" method="post" class="col-md-6">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3"><label asp-for="FacilityId"></label><select asp-for="FacilityId" asp-items="ViewBag.Facilities" class="form-select"><option value="">Choose a facility</option></select><span asp-validation-for="FacilityId" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="BookingDate"></label><input asp-for="BookingDate" class="form-control" /><span asp-validation-for="BookingDate" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="StartTime"></label><input asp-for="StartTime" class="form-control" /><span asp-validation-for="StartTime" class="text-danger"></span></div>
+    <div class="mb-3"><label asp-for="EndTime"></label><input asp-for="EndTime" class="form-control" /><span asp-validation-for="EndTime" class="text-danger"></span></div>
+    <button class="btn btn-primary">Request booking</button>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
