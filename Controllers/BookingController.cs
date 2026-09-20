@@ -53,7 +53,7 @@ public class BookingController : Controller
             else
             {
                 _context.Bookings.Add(new Booking { MemberId = memberId.Value, FacilityId = model.FacilityId,
-                    BookingDate = model.BookingDate.Value, StartTime = start, EndTime = end, Status = "Pending" });
+                    BookingDate = model.BookingDate.Value, StartTime = start, EndTime = end, Status = "Confirmed" });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 TempData["Success"] = "Your booking request has been saved.";

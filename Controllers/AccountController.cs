@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SportsBookingSystem.Data;
 using SportsBookingSystem.Models;
@@ -8,6 +9,7 @@ namespace SportsBookingSystem.Controllers
     public class AccountController : Controller
     {
         private readonly SportsContext _context;
+        private readonly PasswordHasher<Member> _passwordHasher = new();
 
         public AccountController(SportsContext context)
         {
@@ -36,9 +38,23 @@ namespace SportsBookingSystem.Controllers
             }
 
             var member = await _context.Members
-                .FirstOrDefaultAsync(m => m.Email == email.Trim() && m.Password == password);
+                .FirstOrDefaultAsync(m => m.Email == email.Trim());
 
-            if (member == null)
+            if (member == null) {
+                ModelState.AddModelError("", "Invalid email.");
+                return View(); 
+            }
+
+            var passwordIsValid = member != null &&
+                _passwordHasher.VerifyHashedPassword(member, member.Password, password) != PasswordVerificationResult.Failed;
+
+            if (!passwordIsValid && member != null && member.Password == password)
+            {
+                member.Password = _passwordHasher.HashPassword(member, password);
+                passwordIsValid = true;
+            }
+
+            if (!passwordIsValid)
             {
                 ModelState.AddModelError("", "Invalid email or password.");
                 return View();
@@ -86,7 +102,7 @@ namespace SportsBookingSystem.Controllers
                 Email = model.Email,
                 Phone = model.Phone,
                 Address = model.Address,
-                Password = model.Password,
+                Password = _passwordHasher.HashPassword(null!, model.Password),
                 RegDate = DateOnly.FromDateTime(DateTime.Now)
             };
 

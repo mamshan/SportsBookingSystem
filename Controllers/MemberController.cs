@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SportsBookingSystem.Models;
 using SportsBookingSystem.Data;
@@ -8,6 +9,7 @@ using SportsBookingSystem.Data;
 public class MemberController : Controller
 {
     private readonly SportsContext _context;
+    private readonly PasswordHasher<Member> _passwordHasher = new();
 
     public MemberController(SportsContext context)
     {
@@ -53,6 +55,7 @@ public class MemberController : Controller
     {
         if (ModelState.IsValid)
         {
+            member.Password = _passwordHasher.HashPassword(member, member.Password);
             _context.Add(member);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -92,7 +95,21 @@ public class MemberController : Controller
         {
             try
             {
-                _context.Update(member);
+                var existingMember = await _context.Members.FindAsync(member.MemberId);
+                if (existingMember == null)
+                {
+                    return NotFound();
+                }
+
+                existingMember.Name = member.Name;
+                existingMember.Email = member.Email;
+                existingMember.Phone = member.Phone;
+                existingMember.Address = member.Address;
+                existingMember.RegDate = member.RegDate;
+                if (!string.IsNullOrWhiteSpace(member.Password))
+                {
+                    existingMember.Password = _passwordHasher.HashPassword(existingMember, member.Password);
+                }
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

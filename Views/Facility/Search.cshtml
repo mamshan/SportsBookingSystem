@@ -19,7 +19,9 @@
     {
         <table class="table table-striped">
             <thead><tr><th>Facility</th><th>Sport</th><th>Location</th>
-                @if (member) { <th>Capacity</th><th>Hourly rate (LKR)</th><th></th> }
+                @if (member) { 
+                    <th>Capacity</th><th>Hourly rate (LKR)</th><th></th> 
+                }
             </tr></thead>
             <tbody>
             @foreach (var facility in Model.Facilities)

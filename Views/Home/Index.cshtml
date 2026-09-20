@@ -1,7 +1,12 @@
 @{ ViewData["Title"] = "Home"; }
 <h1>Community Sports Facilities</h1>
+@if (Context.Session.GetString("MemberName") != null) {
+<h3 class="nav-item">
+    Hello, @Context.Session.GetString("MemberName")
+</h3>
+}
 <p>Find a local place to play tennis, football, basketball, badminton or go swimming.</p>
-<p>The Sports Council helps the community stay active by providing facilities for practice, friendly games and group activities. Contact us to ask about sports programmes and membership.</p>
+<p>The Sports Council helps the community stay active by providing facilities for practice, friendly games and group activities.<br> Contact us to ask about sports programmes and membership.</p>
 <p><a class="btn btn-primary" asp-controller="Facility" asp-action="Search">Browse facilities</a>
 <a class="btn btn-outline-primary" asp-controller="Review" asp-action="Index">Read reviews</a></p>
 @if (Context.Session.GetInt32("MemberID") == null)
